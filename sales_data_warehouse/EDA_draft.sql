@@ -33,3 +33,11 @@ SELECT
 	MAX(birthdate) AS youngest_birthdate,
 	DATEDIFF(year, MAX(birthdate), GETDATE()) AS youngest_age
 FROM gold.dim_customers
+
+-- Find the total sales
+-- Find how many items are sold
+-- Find the average selling price
+-- Find the total number of orders
+-- Find the total number of products
+-- Find the total number of customers
+-- Find the total number of customers that have placed an order
