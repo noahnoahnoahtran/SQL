@@ -23,4 +23,28 @@ FROM dbo.pizza_sales
 SELECT CAST(CAST(SUM(quantity) AS DECIMAL(10, 2)) / CAST(COUNT(DISTINCT order_id) AS DECIMAL(10, 2)) AS DECIMAL(10, 2)) AS average_pizza_per_order
 FROM dbo.pizza_sales
 
+-- Daily trend for total order
 
+SELECT
+	DATENAME(DW, order_date) AS order_day,
+	COUNT(DISTINCT order_id) AS total_order
+FROM dbo.pizza_sales
+GROUP BY DATENAME(DW, order_date)
+
+-- Monthly trend for total order
+
+SELECT
+	DATENAME(MONTH, order_date) AS month_name,
+	COUNT(DISTINCT order_id) AS total_order
+FROM dbo.pizza_sales
+GROUP BY DATENAME(MONTH, order_date)
+ORDER BY total_order DESC
+
+-- Percentage of sales by pizza category
+
+SELECT
+	pizza_category,
+	ROUND(SUM(total_price), 2) AS total_sales,
+	ROUND(SUM(total_price) * 100 / (SELECT SUM(total_price) FROM dbo.pizza_sales), 2) AS percentage_of_sales
+FROM dbo.pizza_sales
+GROUP BY pizza_category
