@@ -45,6 +45,17 @@ ORDER BY total_order DESC
 SELECT
 	pizza_category,
 	ROUND(SUM(total_price), 2) AS total_sales,
-	ROUND(SUM(total_price) * 100 / (SELECT SUM(total_price) FROM dbo.pizza_sales), 2) AS percentage_of_sales
+	ROUND(SUM(total_price) * 100 / (SELECT SUM(total_price) FROM dbo.pizza_sales WHERE MONTH(order_date) = 1), 2) AS percentage_of_sales
 FROM dbo.pizza_sales
+WHERE MONTH(order_date) = 1
 GROUP BY pizza_category
+
+-- Percentage of sales by pizza size
+
+SELECT
+	pizza_size,
+	ROUND(SUM(total_price), 2) AS total_sales,
+	ROUND(SUM(total_price) * 100 / (SELECT SUM(total_price) FROM dbo.pizza_sales WHERE DATEPART(quarter, order_date) = 1), 2) AS percentage_of_sales
+FROM dbo.pizza_sales
+WHERE DATEPART(quarter, order_date) = 1
+GROUP BY pizza_size
