@@ -59,3 +59,22 @@ SELECT
 FROM dbo.pizza_sales
 WHERE DATEPART(quarter, order_date) = 1
 GROUP BY pizza_size
+
+-- Top 5 sellers by revenue
+
+SELECT TOP 5 pizza_name, SUM(total_price) AS total_revenue
+FROM dbo.pizza_sales
+GROUP BY pizza_name
+ORDER BY SUM(total_price) DESC
+
+-- Bottom 5 sellers by revenue
+
+SELECT TOP 5 pizza_name, SUM(total_price) AS total_revenue
+FROM dbo.pizza_sales
+GROUP BY pizza_name
+ORDER BY SUM(total_price)
+
+-- Top 5 sellers by quantity
+
+
+
