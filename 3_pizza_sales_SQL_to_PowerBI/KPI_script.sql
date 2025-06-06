@@ -76,5 +76,28 @@ ORDER BY SUM(total_price)
 
 -- Top 5 sellers by quantity
 
+SELECT TOP 5 pizza_name, SUM(quantity) AS total_quantity
+FROM dbo.pizza_sales
+GROUP BY pizza_name
+ORDER BY SUM(quantity) DESC
 
+-- Bottom 5 sellers by quantity
 
+SELECT TOP 5 pizza_name, SUM(quantity) AS total_quantity
+FROM dbo.pizza_sales
+GROUP BY pizza_name
+ORDER BY SUM(quantity)
+
+-- Top 5 sellers by order
+
+SELECT TOP 5 pizza_name, COUNT(DISTINCT order_id) AS total_order
+FROM dbo.pizza_sales
+GROUP BY pizza_name
+ORDER BY COUNT(DISTINCT order_id) DESC
+
+-- Bottom 5 sellers by order
+
+SELECT TOP 5 pizza_name, COUNT(DISTINCT order_id) AS total_order
+FROM dbo.pizza_sales
+GROUP BY pizza_name
+ORDER BY COUNT(DISTINCT order_id)
